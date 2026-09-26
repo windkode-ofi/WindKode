@@ -1,0 +1,329 @@
+{
+  "nav": {
+    "servicios": "Servicios",
+    "nosotros": "Nosotros",
+    "equipo": "Equipo",
+    "proyectos": "Proyectos",
+    "contacto": "Contacto",
+    "agenda": "Agenda ya",
+    "menu": "Menú"
+  },
+  "hero": {
+    "kicker": "Software que impulsa tu negocio",
+    "titulo_l1": "Software",
+    "titulo_l2": "a medida",
+    "subtitulo": "Desarrollamos software a medida y automatizamos procesos con la agilidad del viento. Aplicaciones ligeras, veloces y accesibles, respaldadas por un código sólido y un trabajo en equipo excepcional.",
+    "cta_agenda": "Agenda ya",
+    "cta_servicios": "Ver servicios",
+    "cta_proyectos": "Ver proyectos"
+  },
+  "home": {
+    "ver_servicios": "Ver todos los servicios",
+    "manifiesto": {
+      "kicker": "Por qué WindKode",
+      "titulo_l1": "Ligero.",
+      "titulo_l2": "Veloz.",
+      "titulo_l3": "Accesible.",
+      "texto": "No construimos software pesado que nadie quiere usar. Construimos herramientas que cargan al instante, que cualquiera entiende y que crecen contigo. Esa es la agilidad del viento: menos fricción, más resultados.",
+      "cta": "Conoce nuestra historia"
+    },
+    "resolvemos": {
+      "kicker": "Qué resolvemos",
+      "titulo": "¿Te suena familiar?",
+      "subtitulo": "Estas son las situaciones con las que más nos llaman. Si te ves reflejado en alguna, hablemos.",
+      "items": {
+        "manual": {
+          "titulo": "Procesos manuales que se repiten",
+          "descripcion": "Copiar datos entre hojas de cálculo, enviar los mismos correos, revisar a mano. Lo automatizamos para que tu equipo se dedique a lo que importa."
+        },
+        "mvp": {
+          "titulo": "Una idea que necesita salir al mercado",
+          "descripcion": "Tienes el concepto claro pero no el producto. Diseñamos y construimos un MVP funcional en semanas, listo para validar con usuarios reales."
+        },
+        "legacy": {
+          "titulo": "Un sistema viejo que frena al negocio",
+          "descripcion": "Lento, difícil de mantener y nadie se atreve a tocarlo. Lo modernizamos por etapas, sin detener tu operación ni perder información."
+        },
+        "datos": {
+          "titulo": "Información dispersa y sin control",
+          "descripcion": "Cada área usa su propia herramienta y nada se conecta. Integramos tus sistemas y centralizamos los datos en un solo lugar confiable."
+        }
+      }
+    },
+    "proceso": {
+      "kicker": "Cómo trabajamos",
+      "titulo": "Seis fases, cero sorpresas",
+      "subtitulo": "Un ciclo transparente con entregables concretos: sabes en qué fase está tu proyecto y ves avances reales cada semana.",
+      "cta": "Ver el proceso completo"
+    }
+  },
+  "stats": {
+    "proyectos": "Proyectos entregados",
+    "clientes": "Clientes satisfechos",
+    "automatizacion": "Automatización activa",
+    "tecnologias": "Tecnologías dominadas"
+  },
+  "servicios": {
+    "kicker": "Nuestros servicios",
+    "titulo": "Lo que hacemos",
+    "subtitulo": "Soluciones tecnológicas a medida que impulsan tu negocio con la agilidad del viento.",
+    "items": {
+      "web": {
+        "titulo": "Desarrollo Web y Móvil",
+        "descripcion": "Creamos aplicaciones y plataformas ligeras, rápidas y accesibles. Llevamos tu idea a la pantalla de cualquier dispositivo con un diseño intuitivo y un código impecable."
+      },
+      "ia": {
+        "titulo": "Automatización e Inteligencia Artificial",
+        "descripcion": "Tu tiempo es valioso. Eliminamos las tareas manuales de tu empresa automatizando procesos e integrando agentes de IA que trabajan por ti 24/7."
+      },
+      "apis": {
+        "titulo": "APIs e Integraciones",
+        "descripcion": "Hacemos que tus herramientas se comuniquen entre sí. Conectamos tus sistemas actuales para que la información fluya sin barreras ni interrupciones."
+      },
+      "cloud": {
+        "titulo": "Migraciones y Modernización",
+        "descripcion": "Dale un respiro a tu infraestructura. Migramos tus sistemas antiguos a tecnologías modernas o a la nube para hacerlos más seguros, eficientes y escalables."
+      },
+      "consultoria": {
+        "titulo": "Consultoría Tecnológica",
+        "descripcion": "Te guiamos en cada paso. Analizamos tu negocio y trazamos la ruta tecnológica más rápida y efectiva para lograr tu transformación digital."
+      }
+    }
+  },
+  "proceso": {
+    "kicker": "Nuestro proceso",
+    "titulo": "Así trabajamos",
+    "subtitulo": "Un ciclo iterativo y transparente: sabes en qué fase está tu proyecto en todo momento y ves avances reales cada semana.",
+    "hint": "Toca una fase para ver el detalle",
+    "fase": "Fase",
+    "duracion": "Duración",
+    "entregable": "Entregable",
+    "relacionados": "Fases conectadas",
+    "cerrar": "Cerrar",
+    "ciclo": {
+      "kicker": "Ciclo de desarrollo",
+      "titulo": "Paso a paso",
+      "subtitulo": "Cada fase tiene un objetivo claro, una duración estimada y un entregable concreto que revisamos contigo."
+    },
+    "pasos": {
+      "descubrimiento": {
+        "titulo": "Descubrimiento",
+        "descripcion": "Entendemos tu negocio, tus usuarios y el problema real. Definimos alcance, prioridades y cómo mediremos el éxito.",
+        "duracion": "1–2 semanas",
+        "entregable": "Documento de alcance y propuesta"
+      },
+      "diseno": {
+        "titulo": "Diseño",
+        "descripcion": "Prototipamos flujos e interfaces antes de escribir código, para validar contigo la experiencia desde el inicio.",
+        "duracion": "1–2 semanas",
+        "entregable": "Prototipo navegable"
+      },
+      "desarrollo": {
+        "titulo": "Desarrollo",
+        "descripcion": "Construimos en ciclos cortos con entregas frecuentes. Ves avances funcionando cada semana, no al final.",
+        "duracion": "3–8 semanas",
+        "entregable": "Versión funcional en cada sprint"
+      },
+      "pruebas": {
+        "titulo": "Pruebas (QA)",
+        "descripcion": "Pruebas automáticas y manuales en cada entrega: rendimiento, seguridad y accesibilidad antes de salir a producción.",
+        "duracion": "Continuo",
+        "entregable": "Reporte de calidad"
+      },
+      "despliegue": {
+        "titulo": "Despliegue",
+        "descripcion": "Publicamos en la nube con integración continua, monitoreo y respaldos. Un lanzamiento sin sorpresas.",
+        "duracion": "1 semana",
+        "entregable": "Producto en producción"
+      },
+      "evolucion": {
+        "titulo": "Evolución",
+        "descripcion": "Medimos, escuchamos y mejoramos. Soporte, mantenimiento y nuevas funcionalidades cuando tu negocio las necesita.",
+        "duracion": "Continuo",
+        "entregable": "Mejora continua y soporte"
+      }
+    }
+  },
+  "nosotros": {
+    "kicker": "Sobre nosotros",
+    "titulo": "Agilidad, código sólido y equipo excepcional",
+    "p1": "En WindKode desarrollamos software a medida y automatizamos procesos con la agilidad del viento. Entregamos aplicaciones ligeras, veloces y accesibles que resuelven las necesidades específicas de cada usuario.",
+    "p2": "Detrás de cada proyecto hay un código sólido, buenas prácticas desde el primer commit y un trabajo en equipo excepcional, contigo como parte del proceso.",
+    "p3": "Somos una startup de desarrollo de software con base en Bolivia. Trabajamos con negocios que quieren dejar atrás las tareas manuales, lanzar un producto digital o modernizar lo que ya tienen, siempre con el mismo criterio: hacerlo simple, rápido y bien hecho.",
+    "cta_equipo": "Conoce al equipo",
+    "viento": {
+      "kicker": "Nuestra historia",
+      "titulo": "¿Por qué el viento?",
+      "p1": "El viento no pide permiso: se mueve, llega a todas partes y no deja peso a su paso. Así queremos que sea el software que construimos. Sin instalaciones eternas, sin pantallas que tardan en cargar, sin procesos que dependen de una sola persona.",
+      "p2": "WindKode nació de esa idea: unir la velocidad del viento con la solidez del código. Empezamos como dos desarrolladores resolviendo problemas concretos para negocios cercanos y hoy somos un equipo con áreas especializadas que trabaja con el mismo espíritu del primer día."
+    },
+    "mision": {
+      "titulo": "Misión",
+      "texto": "Desarrollar software a medida y automatizar procesos que hagan más ligero el día a día de las empresas, con aplicaciones veloces, accesibles y bien construidas."
+    },
+    "vision": {
+      "titulo": "Visión",
+      "texto": "Ser el aliado tecnológico de referencia para negocios que quieren crecer sin cargar con sistemas pesados, demostrando que la calidad y la agilidad pueden ir juntas."
+    },
+    "valores": {
+      "kicker": "Nuestros valores",
+      "titulo": "Lo que nos mueve",
+      "subtitulo": "Cuatro principios que guían cada decisión, desde la primera reunión hasta el último despliegue.",
+      "items": {
+        "transparencia": {
+          "titulo": "Transparencia",
+          "descripcion": "Sabes qué estamos haciendo, cuánto cuesta y cuándo llega. Sin sorpresas ni letra pequeña."
+        },
+        "calidad": {
+          "titulo": "Calidad",
+          "descripcion": "Código limpio, probado y documentado. Construimos para que dure, no para salir del paso."
+        },
+        "cercania": {
+          "titulo": "Cercanía",
+          "descripcion": "Hablamos tu idioma, no el de la tecnología. Respondemos rápido y te explicamos cada decisión."
+        },
+        "mejora": {
+          "titulo": "Mejora continua",
+          "descripcion": "Cada proyecto nos enseña algo. Medimos, escuchamos y ajustamos para que el producto crezca contigo."
+        }
+      }
+    },
+    "compromisos": {
+      "kicker": "Nuestro compromiso",
+      "titulo": "Trabajar contigo, no para ti",
+      "subtitulo": "Lo que puedes esperar de nosotros en cada proyecto, sea grande o pequeño.",
+      "items": {
+        "entregas": {
+          "titulo": "Avances cada semana",
+          "descripcion": "Ves el producto funcionando desde las primeras semanas, no al final. Ajustamos el rumbo contigo en cada entrega."
+        },
+        "codigo": {
+          "titulo": "El código es tuyo",
+          "descripcion": "Desde el primer día el repositorio y la documentación te pertenecen. Nunca dependerás de nosotros para continuar."
+        },
+        "claridad": {
+          "titulo": "Presupuesto y alcance claros",
+          "descripcion": "Definimos juntos qué se construye y cuánto cuesta antes de escribir una línea. Si algo cambia, lo hablamos primero."
+        },
+        "soporte": {
+          "titulo": "Acompañamiento después del lanzamiento",
+          "descripcion": "Publicar no es el final. Monitoreamos, mantenemos y evolucionamos el producto mientras lo necesites."
+        }
+      }
+    }
+  },
+  "filosofia": {
+    "rapido": {
+      "titulo": "Rápido",
+      "descripcion": "Aplicaciones optimizadas que cargan en un abrir y cerrar de ojos."
+    },
+    "seguro": {
+      "titulo": "Seguro",
+      "descripcion": "Código robusto y buenas prácticas desde el primer commit."
+    },
+    "colaborativo": {
+      "titulo": "Colaborativo",
+      "descripcion": "Trabajo en equipo excepcional, contigo como parte del proceso."
+    }
+  },
+  "equipo": {
+    "kicker": "Nuestro equipo",
+    "titulo": "Las personas detrás del viento",
+    "subtitulo": "Liderazgo cercano y un equipo ágil detrás, obsesionado con la calidad.",
+    "roles": {
+      "fundador": "Fundador · Desarrollador Full-Stack",
+      "segundo": "Cofundador · Desarrollador Full-Stack"
+    },
+    "areas": {
+      "kicker": "Detrás de escena",
+      "titulo": "Un equipo por cada frente",
+      "subtitulo": "Más que dos nombres: áreas especializadas que trabajan juntas para que cada entrega llegue rápida, sólida y bien probada.",
+      "desarrollo": {
+        "titulo": "Desarrollo",
+        "descripcion": "Frontend, backend y móvil. Convierten ideas en aplicaciones ligeras y veloces con código limpio."
+      },
+      "qa": {
+        "titulo": "Calidad (QA)",
+        "descripcion": "Prueban cada funcionalidad antes de que llegue a tus manos. Nada sale sin pasar por aquí."
+      },
+      "diseno": {
+        "titulo": "Diseño UI/UX",
+        "descripcion": "Interfaces claras y accesibles, pensadas para que cualquier usuario las entienda al primer vistazo."
+      },
+      "ventas": {
+        "titulo": "Ventas",
+        "descripcion": "Escuchan tu necesidad y la traducen en una propuesta concreta, sin rodeos ni letra pequeña."
+      },
+      "soporte": {
+        "titulo": "Soporte",
+        "descripcion": "Te acompañan después del lanzamiento: mantenimiento, mejoras y respuesta rápida."
+      },
+      "infraestructura": {
+        "titulo": "Infraestructura y DevOps",
+        "descripcion": "Nube, despliegues y automatización para que todo funcione seguro y sin interrupciones."
+      }
+    }
+  },
+  "proyectos": {
+    "kicker": "Trabajo destacado",
+    "titulo": "Proyectos",
+    "subtitulo": "Cada proyecto es una historia de código, diseño y colaboración.",
+    "vacio": "Pronto compartiremos nuestros proyectos aquí."
+  },
+  "proyecto": {
+    "ver": "Ver proyecto",
+    "repositorio": "Repositorio"
+  },
+  "agenda": {
+    "kicker": "Agenda una cita",
+    "titulo_l1": "Creemos algo",
+    "titulo_l2": "extraordinario",
+    "subtitulo": "Cuéntanos tu idea y la convertimos en software. Agenda una llamada sin compromiso y trazamos juntos la ruta de tu proyecto.",
+    "email_label": "Escríbenos",
+    "respuesta": "Respondemos en menos de 24 horas."
+  },
+  "formulario": {
+    "nombre": {
+      "label": "Nombre",
+      "placeholder": "Tu nombre"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "tu correo electrónico"
+    },
+    "mensaje": {
+      "label": "Mensaje",
+      "placeholder": "Cuéntanos sobre tu proyecto..."
+    },
+    "enviar": "Enviar mensaje",
+    "exito": {
+      "titulo": "Tu correo está listo",
+      "mensaje": "Se abrió tu aplicación de correo con el mensaje redactado. Solo pulsa enviar y te respondemos pronto."
+    },
+    "alternativa": "¿Prefieres otro canal?",
+    "nuevo": "Escribir otro mensaje"
+  },
+  "contacto": {
+    "whatsapp": "Escríbenos por WhatsApp",
+    "email": "Enviar un correo",
+    "whatsapp_mensaje": "Hola WindKode 👋 Me gustaría hacer una consulta sobre un proyecto de software.",
+    "email_asunto": "Solicitud de proyecto — WindKode",
+    "redes": "Síguenos"
+  },
+  "footer": {
+    "copyright": "© {year} WindKode. Todos los derechos reservados.",
+    "hecho": "Hecho con",
+    "hecho_sufijo": "y mucho viento a favor.",
+    "tagline": "Software a medida con la agilidad del viento."
+  },
+  "meta": {
+    "descripcion": "WindKode — Software a medida con la agilidad del viento. Aplicaciones ligeras, veloces y accesibles.",
+    "titulo": "WindKode — Software ágil a medida"
+  },
+  "projects_data": {
+    "windkode_landing": {
+      "title": "WindKode Landing",
+      "description": "Sitio corporativo de WindKode. Aplicación ligera y rápida construida con Vue 3 y TailwindCSS."
+    }
+  }
+}

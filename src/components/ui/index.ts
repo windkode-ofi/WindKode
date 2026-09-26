@@ -1,0 +1,7 @@
+export { default as AppButton } from './AppButton.vue'
+export { default as AppCard } from './AppCard.vue'
+export { default as AppBadge } from './AppBadge.vue'
+export { default as WLogo } from './WLogo.vue'
+export { default as CtaLink } from './CtaLink.vue'
+export { default as WhatsAppIcon } from './WhatsAppIcon.vue'
+export { default as SocialIcon } from './SocialIcon.vue'
