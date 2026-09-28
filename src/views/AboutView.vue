@@ -4,6 +4,7 @@ import { ArrowRight, Compass, Telescope } from '@lucide/vue'
 import { CtaLink, WLogo } from '@/components/ui'
 import { SectionHeader } from '@/components/layout'
 import { RevealOnScroll, StatsBar, CtaBanner } from '@/components/shared'
+import { MaskLines, TiltCard } from '@/components/motion'
 import { pillars, values, commitments } from '@/data'
 
 const { t } = useI18n()
@@ -16,7 +17,7 @@ const { t } = useI18n()
       <div class="grid gap-14 lg:grid-cols-2">
         <RevealOnScroll>
           <div>
-            <SectionHeader align="left" class="mb-0" :kicker="t('nosotros.kicker')" :title="t('nosotros.titulo')" />
+            <SectionHeader as="h1" align="left" class="mb-0" :kicker="t('nosotros.kicker')" :title="t('nosotros.titulo')" />
             <p class="mt-8 max-w-xl leading-relaxed text-silver/70">
               {{ t('nosotros.p1') }}
             </p>
@@ -68,9 +69,11 @@ const { t } = useI18n()
                 <p class="mb-3 text-xs font-medium uppercase tracking-[0.35em] text-steel">
                   {{ t('nosotros.viento.kicker') }}
                 </p>
-                <h2 class="font-display text-metal text-4xl uppercase leading-[0.95] sm:text-5xl md:text-7xl">
-                  {{ t('nosotros.viento.titulo') }}
-                </h2>
+                <MaskLines
+                  :lines="[t('nosotros.viento.titulo')]"
+                  line-class="text-metal"
+                  class="font-display text-4xl uppercase leading-[0.95] sm:text-5xl md:text-7xl"
+                />
                 <p class="mt-6 max-w-xl leading-relaxed text-silver/70">
                   {{ t('nosotros.viento.p1') }}
                 </p>
@@ -131,7 +134,8 @@ const { t } = useI18n()
         </RevealOnScroll>
 
         <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <RevealOnScroll v-for="(value, i) in values" :key="value.key" :delay="i * 100">
+          <RevealOnScroll v-for="(value, i) in values" :key="value.key" :delay="i * 100" class="h-full">
+            <TiltCard>
             <article
               class="group flex h-full flex-col gap-4 rounded-2xl border border-ink/10 bg-ink/[0.03] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-jade-soft/30 hover:bg-carbon/60"
             >
@@ -149,6 +153,7 @@ const { t } = useI18n()
                 </p>
               </div>
             </article>
+            </TiltCard>
           </RevealOnScroll>
         </div>
       </section>

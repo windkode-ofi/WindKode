@@ -20,7 +20,7 @@ const { email, mailtoHref, whatsappHref, whatsappDisplay } = useContact()
       <div class="grid items-center gap-14 lg:grid-cols-2">
         <RevealOnScroll>
           <div>
-            <SectionHeader align="left" class="mb-0" :kicker="t('agenda.kicker')">
+            <SectionHeader as="h1" align="left" class="mb-0" :kicker="t('agenda.kicker')">
               <template #title>
                 <span class="block">{{ t('agenda.titulo_l1') }}</span>
                 <span class="block">{{ t('agenda.titulo_l2') }}</span>

@@ -1,14 +1,28 @@
 <script setup lang="ts">
+import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { Mail } from "@lucide/vue";
 import { WLogo, WhatsAppIcon } from "@/components/ui";
 import { SocialLinks } from "@/components/shared";
 import { useContact } from "@/composables/useContact";
+import { useScrollProgress } from "@/composables/useScrollProgress";
 
 const { t } = useI18n();
 const { email, mailtoHref, whatsappHref, whatsappDisplay } = useContact();
 const year = new Date().getFullYear();
+
+// Letras gigantes de la marca que suben una a una al llegar al final de la página.
+const footer = ref<HTMLElement | null>(null);
+const progress = useScrollProgress(footer, [1, 1]);
+const letters = "WINDKODE".split("");
+const letterStyles = computed(() =>
+  letters.map((_, i) => {
+    const start = 0.1 + i * 0.06;
+    const p = Math.min(1, Math.max(0, (progress.value - start) / 0.4));
+    return { transform: `translateY(${(1 - p) * 100}%) rotate(${(1 - p) * 12}deg)` };
+  }),
+);
 
 const links = [
   { to: "/servicios", label: "nav.servicios" },
@@ -19,7 +33,7 @@ const links = [
 </script>
 
 <template>
-  <footer class="border-t border-ink/5 bg-abyss">
+  <footer ref="footer" class="relative overflow-hidden border-t border-ink/5 bg-abyss">
     <div class="mx-auto max-w-7xl px-6 py-14">
       <div
         class="flex flex-col items-center justify-between gap-8 md:flex-row md:items-start"
@@ -31,7 +45,7 @@ const links = [
           >
             <WLogo class="h-8 w-9" />
             <span class="font-display text-2xl tracking-[0.18em]"
-              >WIND<span class="text-jade-soft">KODE</span></span
+              >WIND<span class="text-steel">KODE</span></span
             >
           </RouterLink>
           <p class="text-xs uppercase tracking-[0.2em] text-silver/40">
@@ -78,5 +92,16 @@ const links = [
         <SocialLinks size="sm" class="justify-center md:justify-end" />
       </div>
     </div>
+
+    <p
+      aria-hidden="true"
+      class="pointer-events-none flex select-none justify-center px-4 font-display text-[21vw] uppercase leading-[0.78] text-ink/[0.05]"
+    >
+      <span v-for="(letter, i) in letters" :key="i" class="inline-block overflow-hidden">
+        <span class="inline-block origin-bottom-left will-change-transform" :class="i >= 4 && 'text-outline'" :style="letterStyles[i]">
+          {{ letter }}
+        </span>
+      </span>
+    </p>
   </footer>
 </template>

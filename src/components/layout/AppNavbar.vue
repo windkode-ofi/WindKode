@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { Menu, X, Sun, Moon, CalendarDays } from '@lucide/vue'
 import { useLocale } from '@/composables/useLocale'
 import { useTheme } from '@/composables/useTheme'
+import { setScrollLocked } from '@/composables/useSmoothScroll'
 import { WLogo, CtaLink } from '@/components/ui'
 
 const route = useRoute()
@@ -25,14 +26,12 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
-  document.documentElement.style.overflow = ''
+  setScrollLocked(false)
 })
 
 // Cierra el menú al navegar y bloquea el scroll de fondo mientras está abierto
 watch(() => route.path, () => (isOpen.value = false))
-watch(isOpen, (open) => {
-  document.documentElement.style.overflow = open ? 'hidden' : ''
-})
+watch(isOpen, (open) => setScrollLocked(open))
 
 const links = [
   { to: '/servicios', label: 'nav.servicios' },
@@ -132,7 +131,7 @@ const links = [
           @click="isOpen = false"
         >
           <WLogo class="h-8 w-9" />
-          <span class="font-display text-2xl tracking-[0.18em]">WIND<span class="text-jade-soft">KODE</span></span>
+          <span class="font-display text-2xl tracking-[0.18em]">WIND<span class="text-steel">KODE</span></span>
         </RouterLink>
 
         <ul class="hidden items-center gap-8 lg:flex">

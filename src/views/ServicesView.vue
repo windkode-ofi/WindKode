@@ -12,6 +12,7 @@ const { t } = useI18n()
     <div class="mx-auto max-w-7xl px-6">
       <RevealOnScroll>
         <SectionHeader
+          as="h1"
           align="split"
           :kicker="t('servicios.kicker')"
           :title="t('servicios.titulo')"
@@ -20,7 +21,7 @@ const { t } = useI18n()
       </RevealOnScroll>
 
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <RevealOnScroll v-for="(service, i) in services" :key="service.key" :delay="i * 90">
+        <RevealOnScroll v-for="(service, i) in services" :key="service.key" :delay="(i % 3) * 110" class="h-full">
           <ServiceCard :service="service" :index="i" />
         </RevealOnScroll>
       </div>

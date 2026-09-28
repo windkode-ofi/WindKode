@@ -1,16 +1,23 @@
 import './assets/main.css'
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
-import router from './router'
-import { i18n } from './i18n'
+import 'lenis/dist/lenis.css'
+import { createWebHistory } from 'vue-router'
+import { createHead } from '@unhead/vue/client'
+import { createWindApp } from './app'
+import { useLocaleStore } from './stores/locale.store'
+import { useThemeStore } from './stores/theme.store'
 
-const app = createApp(App)
+const container = document.getElementById('app')
+// En build cada ruta llega prerenderizada: se hidrata. En `pnpm dev` el contenedor está vacío.
+const hydrate = Boolean(container?.firstElementChild)
 
-app.use(createPinia())
-app.use(router)
-app.use(i18n)
+const { app, router, pinia } = createWindApp(createWebHistory(), hydrate)
+app.use(createHead())
 
-document.documentElement.lang = i18n.global.locale.value
-
-app.mount('#app')
+router.isReady().then(() => {
+  app.mount('#app')
+  // Preferencias del visitante: se aplican después de hidratar para no romper el HTML servido.
+  useThemeStore(pinia).restore()
+  useLocaleStore(pinia).restore()
+  // Avisa a la pantalla de carga (script inline de index.html) de que la app ya está lista.
+  requestAnimationFrame(() => window.dispatchEvent(new Event('wk:app-ready')))
+})

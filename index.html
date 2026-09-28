@@ -2,13 +2,124 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="WindKode — Software a medida con la agilidad del viento. Aplicaciones ligeras, veloces y accesibles." />
-    <title>WindKode — Software ágil a medida</title>
+    <!--
+      El título, la description, canonical, Open Graph y JSON-LD de cada ruta los
+      genera useSeo() y el build los prerenderiza en el HTML (scripts/prerender.mjs).
+      Los de abajo son solo los valores por defecto (desarrollo).
+    -->
+    <title>WindKode | Desarrollo de software a medida en Bolivia</title>
+    <meta
+      name="description"
+      content="WindKode es una startup de desarrollo de software en Bolivia. Creamos aplicaciones web y móviles a medida, automatizamos procesos y modernizamos sistemas con código ágil."
+    />
+    <meta
+      name="keywords"
+      content="windkode, wind kode, windkode-ofi, desarrollo de software, desarrollo de software Bolivia, software a medida, desarrollo web Bolivia, aplicaciones móviles Bolivia, automatización de procesos, startup de software Bolivia"
+    />
+    <meta name="author" content="WindKode" />
+    <meta name="theme-color" content="#f4f5f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0f12" media="(prefers-color-scheme: dark)" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--
+      Antes del primer pintado: aplica el tema guardado (sin parpadeo) y arranca
+      la pantalla de carga. La carga no se retira hasta que todo está listo:
+      fuentes, imágenes (evento load) y la app montada e hidratada (evento
+      `wk:app-ready` que emite main.ts). El contador avanza solo hasta ~90 %
+      mientras espera y completa el 100 % al estar listo. Mínimo 900 ms para que
+      la animación se aprecie y máximo 8 s por si algo falla. No se muestra a
+      bots ni con movimiento reducido.
+    -->
+    <script>
+      (function () {
+        var d = document.documentElement
+        try {
+          var theme = localStorage.getItem('theme')
+          if (theme === 'dark' || theme === 'light') d.classList.add(theme)
+        } catch (e) {}
+
+        if (
+          /bot|crawl|spider|slurp/i.test(navigator.userAgent) ||
+          matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) return
+        d.classList.add('intro-pending')
+
+        var MIN_MS = 900
+        var MAX_MS = 8000
+        var start = performance.now()
+        var pending = 3
+        var ready = false
+        function done() {
+          if (--pending <= 0) ready = true
+        }
+
+        addEventListener('load', done, { once: true })
+        addEventListener('wk:app-ready', done, { once: true })
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(done, done)
+        else done()
+
+        document.addEventListener('DOMContentLoaded', function () {
+          var el = document.getElementById('wk-intro')
+          if (!el) return d.classList.remove('intro-pending')
+          var count = el.querySelector('[data-count]')
+          var bar = el.querySelector('[data-bar]')
+          var shown = 0
+
+          function tick(now) {
+            var elapsed = now - start
+            var finished = (ready && elapsed >= MIN_MS) || elapsed >= MAX_MS
+            // Mientras espera se acerca a 90 sin llegar; al terminar corre a 100.
+            var goal = finished ? 100 : 90 * (1 - Math.exp(-elapsed / 1200))
+            shown += (goal - shown) * (finished ? 0.18 : 0.08)
+            if (finished && 100 - shown < 0.5) shown = 100
+            var v = Math.floor(shown)
+            count.textContent = v
+            bar.style.transform = 'scaleX(' + shown / 100 + ')'
+            if (shown < 100) return requestAnimationFrame(tick)
+            el.classList.add('is-leaving')
+            d.classList.remove('intro-pending')
+            setTimeout(function () {
+              el.remove()
+            }, 1000)
+          }
+          requestAnimationFrame(tick)
+        })
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,400..700&display=swap"
+    />
+    <noscript>
+      <style>
+        .reveal,
+        .mask-line > * {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
-    <div id="app"></div>
+    <!-- Intro: solo visible con html.intro-pending (ver script de arriba y main.css) -->
+    <div id="wk-intro" aria-hidden="true">
+      <span class="wk-intro-mark"></span>
+      <div class="wk-intro-foot">
+        <span class="wk-intro-tag">WindKode<br />Software · Bolivia</span>
+        <span class="wk-intro-count"><span data-count>0</span><span class="wk-intro-pct">%</span></span>
+      </div>
+      <span class="wk-intro-bar" data-bar></span>
+    </div>
+    <div id="app"><!--app-html--></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

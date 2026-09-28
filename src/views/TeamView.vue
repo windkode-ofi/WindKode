@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { SectionHeader } from '@/components/layout'
 import { RevealOnScroll, TeamCard, TeamAreaCard, CtaBanner } from '@/components/shared'
+import { TiltCard } from '@/components/motion'
 import { team, teamAreas } from '@/data'
 
 const { t } = useI18n()
@@ -11,12 +12,14 @@ const { t } = useI18n()
   <main class="min-h-screen bg-abyss pt-28 md:pt-36 text-silver">
     <div class="mx-auto max-w-7xl px-6 pb-24 md:pb-32">
       <RevealOnScroll>
-        <SectionHeader :kicker="t('equipo.kicker')" :title="t('equipo.titulo')" :subtitle="t('equipo.subtitulo')" />
+        <SectionHeader as="h1" :kicker="t('equipo.kicker')" :title="t('equipo.titulo')" :subtitle="t('equipo.subtitulo')" />
       </RevealOnScroll>
 
       <div class="mx-auto grid max-w-3xl gap-5 sm:grid-cols-2">
-        <RevealOnScroll v-for="(member, i) in team" :key="member.name" :delay="i * 120">
-          <TeamCard :member="member" />
+        <RevealOnScroll v-for="(member, i) in team" :key="member.name" :delay="i * 120" class="h-full">
+          <TiltCard>
+            <TeamCard :member="member" />
+          </TiltCard>
         </RevealOnScroll>
       </div>
 
@@ -30,8 +33,10 @@ const { t } = useI18n()
         </RevealOnScroll>
 
         <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <RevealOnScroll v-for="(area, i) in teamAreas" :key="area.key" :delay="i * 100">
-            <TeamAreaCard :area="area" />
+          <RevealOnScroll v-for="(area, i) in teamAreas" :key="area.key" :delay="(i % 3) * 100" class="h-full">
+            <TiltCard>
+              <TeamAreaCard :area="area" />
+            </TiltCard>
           </RevealOnScroll>
         </div>
       </section>

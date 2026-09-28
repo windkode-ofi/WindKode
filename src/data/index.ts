@@ -176,3 +176,19 @@ export const marqueeItems = [
   'CI / CD',
   'Git',
 ]
+
+export interface StackLayerItem {
+  key: 'app' | 'ia' | 'apis' | 'cloud'
+  icon: Component
+}
+
+/**
+ * Capas de la escena 3D de la home (de arriba abajo). Textos en
+ * `home.arquitectura.capas.<key>`.
+ */
+export const stackLayers: StackLayerItem[] = [
+  { key: 'app', icon: MonitorSmartphone },
+  { key: 'ia', icon: BrainCircuit },
+  { key: 'apis', icon: Cable },
+  { key: 'cloud', icon: CloudUpload },
+]

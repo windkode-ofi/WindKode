@@ -1,5 +1,6 @@
 {
   "nav": {
+    "inicio": "Home",
     "servicios": "Services",
     "nosotros": "About",
     "equipo": "Team",
@@ -15,7 +16,10 @@
     "subtitulo": "We build custom software and automate processes with the agility of the wind. Lightweight, fast and accessible applications, backed by solid code and exceptional teamwork.",
     "cta_agenda": "Book now",
     "cta_servicios": "See services",
-    "cta_proyectos": "View projects"
+    "cta_proyectos": "View projects",
+    "scroll": "Scroll to explore · Scroll to explore · ",
+    "scroll_label": "Go to the next section",
+    "ubicacion": "Made in Bolivia"
   },
   "home": {
     "ver_servicios": "See all services",
@@ -54,7 +58,33 @@
       "kicker": "How we work",
       "titulo": "Six phases, zero surprises",
       "subtitulo": "A transparent cycle with concrete deliverables: you know which phase your project is in and see real progress every week.",
-      "cta": "See the full process"
+      "cta": "See the full process",
+      "etapas": "{n} phases",
+      "cierre_l1": "…and then we start again,",
+      "cierre_l2": "better."
+    },
+    "arquitectura": {
+      "kicker": "How we build it",
+      "titulo": "Layer by layer",
+      "texto": "Every project is a full stack: the app your customers use, the intelligence that automates, the integrations that connect your systems and the cloud that runs it all. We take care of every layer.",
+      "capas": {
+        "app": {
+          "titulo": "Your application",
+          "detalle": "Web and mobile, fast and accessible"
+        },
+        "ia": {
+          "titulo": "Intelligence",
+          "detalle": "AI and process automation"
+        },
+        "apis": {
+          "titulo": "Integrations",
+          "detalle": "APIs that connect your systems"
+        },
+        "cloud": {
+          "titulo": "Cloud",
+          "detalle": "Infrastructure, migration and support"
+        }
+      }
     }
   },
   "stats": {
@@ -317,13 +347,46 @@
     "tagline": "Custom software with the agility of the wind."
   },
   "meta": {
-    "descripcion": "WindKode — Custom software with the agility of the wind. Lightweight, fast and accessible applications.",
-    "titulo": "WindKode — Agile custom software"
+    "descripcion": "WindKode is a software development startup in Bolivia: custom web and mobile apps, process automation and agile systems with the agility of the wind.",
+    "titulo": "WindKode — Custom Software Development in Bolivia"
+  },
+  "seo": {
+    "home": {
+      "titulo": "WindKode {'|'} Custom Software Development in Bolivia",
+      "descripcion": "WindKode is a software development startup in Bolivia. We build custom web and mobile apps, automate processes and modernize systems with agile code."
+    },
+    "servicios": {
+      "titulo": "Software Development Services {'|'} WindKode Bolivia",
+      "descripcion": "Software development services in Bolivia: custom web and mobile apps, process automation, cloud migration and support. Get a quote with WindKode."
+    },
+    "nosotros": {
+      "titulo": "About Us — Software Startup in Bolivia {'|'} WindKode",
+      "descripcion": "Meet WindKode, a Bolivian software development startup building lightweight, fast and accessible applications for growing businesses."
+    },
+    "equipo": {
+      "titulo": "Our Team of Software Developers {'|'} WindKode Bolivia",
+      "descripcion": "We are full-stack developers in Bolivia who love solid code. Meet the WindKode team behind every digital product."
+    },
+    "agenda": {
+      "titulo": "Book a Call — Custom Software {'|'} WindKode",
+      "descripcion": "Tell us your idea and we'll turn it into software. Book a free call with WindKode and plan your project's roadmap in Bolivia."
+    },
+    "no_encontrado": {
+      "titulo": "Page not found {'|'} WindKode",
+      "descripcion": "The page you're looking for doesn't exist. Discover WindKode's custom software development services in Bolivia."
+    }
   },
   "projects_data": {
     "windkode_landing": {
       "title": "WindKode Landing",
       "description": "WindKode corporate website. Lightweight and fast application built with Vue 3 and TailwindCSS."
     }
+  },
+  "no_encontrado": {
+    "kicker": "Error 404",
+    "titulo_l1": "Gone with",
+    "titulo_l2": "the wind",
+    "texto": "The page you're looking for doesn't exist or has moved. Head back home or tell us what you need.",
+    "cta": "Back to home"
   }
 }

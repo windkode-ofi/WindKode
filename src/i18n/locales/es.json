@@ -1,5 +1,6 @@
 {
   "nav": {
+    "inicio": "Inicio",
     "servicios": "Servicios",
     "nosotros": "Nosotros",
     "equipo": "Equipo",
@@ -15,7 +16,10 @@
     "subtitulo": "Desarrollamos software a medida y automatizamos procesos con la agilidad del viento. Aplicaciones ligeras, veloces y accesibles, respaldadas por un código sólido y un trabajo en equipo excepcional.",
     "cta_agenda": "Agenda ya",
     "cta_servicios": "Ver servicios",
-    "cta_proyectos": "Ver proyectos"
+    "cta_proyectos": "Ver proyectos",
+    "scroll": "Desliza para explorar · Desliza para explorar · ",
+    "scroll_label": "Ir a la siguiente sección",
+    "ubicacion": "Hecho en Bolivia"
   },
   "home": {
     "ver_servicios": "Ver todos los servicios",
@@ -54,7 +58,33 @@
       "kicker": "Cómo trabajamos",
       "titulo": "Seis fases, cero sorpresas",
       "subtitulo": "Un ciclo transparente con entregables concretos: sabes en qué fase está tu proyecto y ves avances reales cada semana.",
-      "cta": "Ver el proceso completo"
+      "cta": "Ver el proceso completo",
+      "etapas": "{n} fases",
+      "cierre_l1": "…y volvemos a empezar,",
+      "cierre_l2": "mejor."
+    },
+    "arquitectura": {
+      "kicker": "Cómo lo construimos",
+      "titulo": "Capa por capa",
+      "texto": "Cada proyecto es una pila completa: la app que usan tus clientes, la inteligencia que automatiza, las integraciones que conectan tus sistemas y la nube que lo sostiene todo. Nos encargamos de cada capa.",
+      "capas": {
+        "app": {
+          "titulo": "Tu aplicación",
+          "detalle": "Web y móvil, rápida y accesible"
+        },
+        "ia": {
+          "titulo": "Inteligencia",
+          "detalle": "IA y automatización de procesos"
+        },
+        "apis": {
+          "titulo": "Integraciones",
+          "detalle": "APIs que conectan tus sistemas"
+        },
+        "cloud": {
+          "titulo": "Nube",
+          "detalle": "Infraestructura, migración y soporte"
+        }
+      }
     }
   },
   "stats": {
@@ -317,13 +347,46 @@
     "tagline": "Software a medida con la agilidad del viento."
   },
   "meta": {
-    "descripcion": "WindKode — Software a medida con la agilidad del viento. Aplicaciones ligeras, veloces y accesibles.",
-    "titulo": "WindKode — Software ágil a medida"
+    "descripcion": "WindKode es una startup de desarrollo de software en Bolivia: aplicaciones web y móviles a medida, automatización de procesos y sistemas ágiles con la agilidad del viento.",
+    "titulo": "WindKode — Desarrollo de software a medida en Bolivia"
+  },
+  "seo": {
+    "home": {
+      "titulo": "WindKode {'|'} Desarrollo de software a medida en Bolivia",
+      "descripcion": "WindKode es una startup de desarrollo de software en Bolivia. Creamos aplicaciones web y móviles a medida, automatizamos procesos y modernizamos sistemas con código ágil."
+    },
+    "servicios": {
+      "titulo": "Servicios de desarrollo de software {'|'} WindKode Bolivia",
+      "descripcion": "Servicios de desarrollo de software en Bolivia: apps web y móviles a medida, automatización de procesos, migración a la nube y soporte. Cotiza con WindKode."
+    },
+    "nosotros": {
+      "titulo": "Nosotros — Startup de software en Bolivia {'|'} WindKode",
+      "descripcion": "Conoce a WindKode: startup boliviana de desarrollo de software que construye aplicaciones ligeras, veloces y accesibles para negocios que quieren crecer."
+    },
+    "equipo": {
+      "titulo": "Equipo de desarrolladores de software {'|'} WindKode Bolivia",
+      "descripcion": "Somos desarrolladores full-stack de Bolivia apasionados por el código sólido. Conoce al equipo de WindKode detrás de cada producto digital."
+    },
+    "agenda": {
+      "titulo": "Agenda una llamada — Software a medida {'|'} WindKode",
+      "descripcion": "Cuéntanos tu idea y la convertimos en software. Agenda una llamada sin compromiso con WindKode y trazamos la ruta de tu proyecto en Bolivia."
+    },
+    "no_encontrado": {
+      "titulo": "Página no encontrada {'|'} WindKode",
+      "descripcion": "La página que buscas no existe. Descubre los servicios de desarrollo de software a medida de WindKode en Bolivia."
+    }
   },
   "projects_data": {
     "windkode_landing": {
       "title": "WindKode Landing",
       "description": "Sitio corporativo de WindKode. Aplicación ligera y rápida construida con Vue 3 y TailwindCSS."
     }
+  },
+  "no_encontrado": {
+    "kicker": "Error 404",
+    "titulo_l1": "Se la llevó",
+    "titulo_l2": "el viento",
+    "texto": "La página que buscas no existe o cambió de lugar. Vuelve al inicio o cuéntanos qué necesitas.",
+    "cta": "Volver al inicio"
   }
 }
