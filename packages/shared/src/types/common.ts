@@ -7,7 +7,8 @@ export interface ApiError {
 
 /** Respuesta normalizada de los services del cliente: nunca lanzan, la UI decide con `success`. */
 export type GenericResponse<T = null> =
-    { data: null; error: string; success: false } | { data: T; error?: string; success: true }
+    | { data: null; error: string; fieldErrors?: Record<string, string[]>; success: false }
+    | { data: T; error?: string; success: true }
 
 /** Página de resultados de un listado. */
 export interface Paginated<T> {

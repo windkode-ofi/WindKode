@@ -1,6 +1,7 @@
 import type { Deal, DealCreateInput, DealMoveInput, DealUpdateInput } from '@windkode/shared'
 
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
+import { insertAtPosition } from '@windkode/shared'
 
 import type { Prisma } from '../../generated/prisma/client.js'
 import type { AuthUser } from '../auth/auth.types.js'
@@ -8,7 +9,6 @@ import type { AuthUser } from '../auth/auth.types.js'
 import { PrismaService } from '../../providers/prisma/prisma.service.js'
 import { AuditService } from '../audit/audit.service.js'
 import { DEAL_INCLUDE, toDeal } from './deals.mapper.js'
-import { insertAtPosition } from './deals.util.js'
 
 const DEAL_NOT_FOUND = 'Oportunidad no encontrada'
 

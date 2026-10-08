@@ -4,5 +4,14 @@ import { nodeConfig } from '@windkode/eslint-config/node'
 export default [
     ...nodeConfig,
     { ignores: ['prisma/migrations/**', 'src/generated/**'] },
-    { languageOptions: { parserOptions: { projectService: { allowDefaultProject: ['*.config.ts', 'prisma/*.ts'] }, tsconfigRootDir: import.meta.dirname } } },
+    {
+        // El seed y prisma.config.ts viven fuera de src: se lintean con el proyecto por defecto.
+        files: ['**/*.ts'],
+        languageOptions: {
+            parserOptions: {
+                projectService: { allowDefaultProject: ['*.config.ts', 'prisma/*.ts'] },
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
+    },
 ]

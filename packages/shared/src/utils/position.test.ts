@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { insertAtPosition } from './deals.util.js'
+import { insertAtPosition } from './index.js'
 
 describe('insertAtPosition', () => {
     it('inserta al inicio de otra columna', () => {
