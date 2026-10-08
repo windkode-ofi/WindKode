@@ -27,6 +27,7 @@ documentos/   Contratos y propuestas (solo local, fuera de git)
 
 ```sh
 pnpm install      # instala todo el monorepo (y los hooks de git)
+pnpm dev          # levanta todo: base de datos, api, panel y landing
 pnpm db:up        # Postgres local con docker (puerto 5433)
 pnpm dev:api      # api en http://localhost:4000
 pnpm dev:admin    # panel en http://localhost:5174
@@ -45,7 +46,7 @@ cp apps/admin/.env.example apps/admin/.env
 pnpm db:up
 pnpm --filter @windkode/api prisma:migrate:dev
 pnpm --filter @windkode/api seed            # admin + datos de ejemplo (idempotente)
-pnpm dev:api   # en otra terminal: pnpm dev:admin
+pnpm dev       # api :4000, panel :5174 y landing :5173
 ```
 
 Entra con `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` del `.env` de la api.

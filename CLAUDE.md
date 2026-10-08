@@ -20,6 +20,7 @@ documentos/      business documents (contracts, proposals, docx/pdf) — local o
 
 ```sh
 pnpm install
+pnpm dev          # everything at once: db + api :4000 + admin :5174 + web :5173 + shared watch
 pnpm db:up        # local Postgres (docker compose, :5433)
 pnpm dev:api      # api on :4000 (+ shared in watch mode)
 pnpm dev:admin    # admin on :5174
