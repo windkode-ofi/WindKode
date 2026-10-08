@@ -12,31 +12,31 @@ Commits convencionales **en español y con scope obligatorio**, validados por co
 
 ## Tipos
 
-| Tipo       | Cuándo usarlo                                                    |
-|------------|------------------------------------------------------------------|
-| `feat`     | Nueva funcionalidad.                                             |
-| `fix`      | Corrección de un error.                                          |
-| `docs`     | Solo documentación (README, CLAUDE.md, docs/).                   |
-| `style`    | Formato (espacios, indentación) sin efecto en el código.         |
-| `refactor` | Reestructuración sin corregir errores ni añadir funcionalidad.   |
-| `perf`     | Mejora de rendimiento.                                           |
-| `test`     | Añadir o corregir tests.                                         |
-| `build`    | Sistema de build o dependencias externas.                        |
-| `ci`       | Workflows de CI/CD.                                              |
-| `chore`    | Mantenimiento que no encaja en lo anterior.                      |
-| `revert`   | Revertir un commit anterior.                                     |
+| Tipo       | Cuándo usarlo                                                  |
+| ---------- | -------------------------------------------------------------- |
+| `feat`     | Nueva funcionalidad.                                           |
+| `fix`      | Corrección de un error.                                        |
+| `docs`     | Solo documentación (README, CLAUDE.md, docs/).                 |
+| `style`    | Formato (espacios, indentación) sin efecto en el código.       |
+| `refactor` | Reestructuración sin corregir errores ni añadir funcionalidad. |
+| `perf`     | Mejora de rendimiento.                                         |
+| `test`     | Añadir o corregir tests.                                       |
+| `build`    | Sistema de build o dependencias externas.                      |
+| `ci`       | Workflows de CI/CD.                                            |
+| `chore`    | Mantenimiento que no encaja en lo anterior.                    |
+| `revert`   | Revertir un commit anterior.                                   |
 
 ## Scopes (cerrados)
 
-| Scope    | Qué abarca                                              |
-|----------|---------------------------------------------------------|
-| `web`    | `apps/web` (landing)                                    |
-| `admin`  | `apps/admin` (panel interno)                            |
-| `api`    | `apps/api` (backend NestJS)                             |
-| `shared` | `packages/shared`                                       |
+| Scope    | Qué abarca                                                                       |
+| -------- | -------------------------------------------------------------------------------- |
+| `web`    | `apps/web` (landing)                                                             |
+| `admin`  | `apps/admin` (panel interno)                                                     |
+| `api`    | `apps/api` (backend NestJS)                                                      |
+| `shared` | `packages/shared`                                                                |
 | `config` | Configuración de la raíz del monorepo (turbo, pnpm, husky, lint, docs generales) |
-| `ci`     | `.github/`                                              |
-| `deps`   | Actualización de dependencias                           |
+| `ci`     | `.github/`                                                                       |
+| `deps`   | Actualización de dependencias                                                    |
 
 ## Ejemplos
 

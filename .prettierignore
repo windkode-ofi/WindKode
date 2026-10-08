@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+**/dist
+**/dist-ssr
+**/coverage
+**/generated
+.turbo
+documentos
+# La landing se formatea en un paso aparte, verificando que el build no cambie (el plugin de CSS reordena propiedades).
+apps/web

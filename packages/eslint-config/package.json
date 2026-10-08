@@ -1,0 +1,30 @@
+{
+    "name": "@windkode/eslint-config",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Configuración de ESLint compartida: base TypeScript + presets de Vue y Node.",
+    "license": "UNLICENSED",
+    "type": "module",
+    "exports": {
+        ".": "./index.js",
+        "./node": "./node.js",
+        "./vue": "./vue.js"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "eslint": "^10.12.0",
+        "eslint-plugin-perfectionist": "^5.12.1",
+        "eslint-plugin-unused-imports": "^4.4.1",
+        "eslint-plugin-vue": "^10.11.1",
+        "globals": "^17.13.0",
+        "typescript": "~6.0.3",
+        "typescript-eslint": "^8.71.1"
+    },
+    "engines": {
+        "node": ">=24.12.0"
+    }
+}
