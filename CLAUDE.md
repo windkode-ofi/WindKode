@@ -22,7 +22,7 @@ There is no linter or test runner configured. Type-checking is the only gate: `p
 
 ## Commit convention
 
-Enforced by husky + commitlint (`@commitlint/config-conventional`) on `commit-msg`. Format: `<tipo>: <descripción breve>` with types `feat|fix|docs|style|refactor|perf|test|chore`. Descriptions are written in Spanish (see `commit.md` for examples).
+Enforced by husky + commitlint (`@commitlint/config-conventional`) on `commit-msg`. Format: `<tipo>: <descripción breve>` with types `feat|fix|docs|style|refactor|perf|test|chore`. Descriptions are written in Spanish (see `docs/commit.md` for examples; brand rules in `docs/BRAND-GUIDE.md`).
 
 ## Deploy and SEO (prerender)
 
@@ -34,7 +34,7 @@ SSR rules: never touch `window`/`document`/`localStorage` at module level or in 
 
 ## Contact channels
 
-All contact data lives in `src/config/contact.ts` (email `windkode@gmail.com`, WhatsApp `5917590262` in E.164 without `+`), overridable via `VITE_CONTACT_EMAIL` / `VITE_WHATSAPP_NUMBER`, plus `SOCIAL_LINKS` (Instagram, Facebook, LinkedIn; keep URLs free of tracking params). Consume it only through `useContact()` (`src/composables/useContact.ts`), which builds the localized `wa.me` link (default message = `contacto.whatsapp_mensaje`), the `mailto:` link, and drives the form status (`idle | sent`).
+All contact data lives in `src/config/contact.ts` (email `windkode@gmail.com`, WhatsApp `59175904262` in E.164 without `+`), overridable via `VITE_CONTACT_EMAIL` / `VITE_WHATSAPP_NUMBER`, plus `SOCIAL_LINKS` (Instagram, Facebook, LinkedIn; keep URLs free of tracking params). Consume it only through `useContact()` (`src/composables/useContact.ts`), which builds the localized `wa.me` link (default message = `contacto.whatsapp_mensaje`), the `mailto:` link, and drives the form status (`idle | sent`).
 
 There is **no backend**: submitting the form calls `buildContactMailto` (`contact.service.ts`) and sets `window.location.href` to a `mailto:` URL with subject and body prefilled, so the visitor's own mail client sends the message. Spaces are encoded as `%20` (not `+`) because mail clients don't decode `+` in `mailto:`.
 
