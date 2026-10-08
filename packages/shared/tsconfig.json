@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        // Salida
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "sourceMap": true,
+
+        // Módulos: ESM puro, los imports internos llevan extensión .js
+        "isolatedModules": true,
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "es2023",
+        "verbatimModuleSyntax": true,
+
+        // Rigor
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "skipLibCheck": true,
+        "strict": true
+    },
+    "include": ["src"]
+}
