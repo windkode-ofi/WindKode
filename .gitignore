@@ -40,3 +40,6 @@ __screenshots__/
 
 # Documentos de negocio (contratos, propuestas, guías): locales, fuera de git
 documentos/
+
+# Turborepo
+.turbo

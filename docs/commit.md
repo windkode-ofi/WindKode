@@ -1,35 +1,58 @@
-# Convención de Commits
+# Convención de commits
+
+Commits convencionales **en español y con scope obligatorio**, validados por commitlint en el hook `commit-msg` (`commitlint.config.cjs`).
 
 ## Formato
 
 ```
-<tipo>: <descripción breve>
+<tipo>(<scope>): <descripción breve en minúscula>
 
 <cuerpo opcional>
 ```
 
 ## Tipos
 
-| Tipo       | Cuándo usarlo                                                  |
-|------------|----------------------------------------------------------------|
-| `feat`     | Al añadir una nueva funcionalidad (feature).                   |
-| `fix`      | Al solucionar un error o bug.                                  |
-| `docs`     | Cambios exclusivos en la documentación (README, manuales).     |
-| `style`    | Cambios de formato (espacios, indentación) sin efecto en código.|
-| `refactor` | Reestructuración sin corregir errores ni añadir funcionalidad. |
-| `perf`     | Cambio enfocado en mejorar el rendimiento.                     |
-| `test`     | Añadir pruebas unitarias faltantes o corregir existentes.      |
-| `chore`    | Mantenimiento, dependencias, herramientas de compilación.      |
+| Tipo       | Cuándo usarlo                                                    |
+|------------|------------------------------------------------------------------|
+| `feat`     | Nueva funcionalidad.                                             |
+| `fix`      | Corrección de un error.                                          |
+| `docs`     | Solo documentación (README, CLAUDE.md, docs/).                   |
+| `style`    | Formato (espacios, indentación) sin efecto en el código.         |
+| `refactor` | Reestructuración sin corregir errores ni añadir funcionalidad.   |
+| `perf`     | Mejora de rendimiento.                                           |
+| `test`     | Añadir o corregir tests.                                         |
+| `build`    | Sistema de build o dependencias externas.                        |
+| `ci`       | Workflows de CI/CD.                                              |
+| `chore`    | Mantenimiento que no encaja en lo anterior.                      |
+| `revert`   | Revertir un commit anterior.                                     |
+
+## Scopes (cerrados)
+
+| Scope    | Qué abarca                                              |
+|----------|---------------------------------------------------------|
+| `web`    | `apps/web` (landing)                                    |
+| `admin`  | `apps/admin` (panel interno)                            |
+| `api`    | `apps/api` (backend NestJS)                             |
+| `shared` | `packages/shared`                                       |
+| `config` | Configuración de la raíz del monorepo (turbo, pnpm, husky, lint, docs generales) |
+| `ci`     | `.github/`                                              |
+| `deps`   | Actualización de dependencias                           |
 
 ## Ejemplos
 
 ```
-feat: agregar formulario de contacto con validación
-fix: corregir error de compilación de i18n con el carácter @
-docs: actualizar README con instrucciones de instalación
-style: formatear archivos con prettier
-refactor: extraer lógica de validación a un composable
-perf: lazy loading de imágenes en la sección de proyectos
-test: agregar tests unitarios para el store de proyectos
-chore: actualizar vue-i18n a v11
+feat(web): agrega sección de testimonios
+fix(web): corrige el carácter @ en los textos de i18n
+feat(admin): agrega tablero kanban de ventas
+feat(api): agrega módulo de clientes
+refactor(shared): extrae los formateadores de moneda
+chore(config): configura turborepo
+ci(ci): agrega job de typecheck
+build(deps): actualiza vue a 3.6
 ```
+
+## Ramas
+
+- `main`: producción. Nunca se trabaja directo en ella; recibe merges desde `develop`.
+- `develop`: preproducción / integración.
+- Trabajo: `<tipo>/<descripcion-en-kebab>` (p. ej. `feat/kanban-ventas`), sale de `develop` y vuelve por PR.
