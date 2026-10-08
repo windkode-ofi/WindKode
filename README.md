@@ -27,8 +27,9 @@ documentos/   Contratos y propuestas (solo local, fuera de git)
 
 ```sh
 pnpm install      # instala todo el monorepo (y los hooks de git)
-pnpm dev          # levanta todo: base de datos, api, panel y landing
-pnpm db:up        # Postgres local con docker (puerto 5433)
+pnpm dev          # levanta todo: api, panel y landing (usa la base de apps/api/.env, p. ej. Supabase)
+pnpm dev:local    # igual, pero antes levanta el Postgres local con docker
+pnpm db:up        # solo el Postgres local (puerto 5433)
 pnpm dev:api      # api en http://localhost:4000
 pnpm dev:admin    # panel en http://localhost:5174
 pnpm dev:web      # landing en modo desarrollo

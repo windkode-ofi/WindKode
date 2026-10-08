@@ -20,8 +20,9 @@ documentos/      business documents (contracts, proposals, docx/pdf) — local o
 
 ```sh
 pnpm install
-pnpm dev          # everything at once: db + api :4000 + admin :5174 + web :5173 + shared watch
-pnpm db:up        # local Postgres (docker compose, :5433)
+pnpm dev          # everything at once: api :4000 + admin :5174 + web :5173 + shared watch (uses the DB in apps/api/.env, e.g. Supabase)
+pnpm dev:local    # same, but first starts the local Postgres (docker compose, :5433)
+pnpm db:up        # local Postgres only
 pnpm dev:api      # api on :4000 (+ shared in watch mode)
 pnpm dev:admin    # admin on :5174
 pnpm dev:web      # landing dev server
