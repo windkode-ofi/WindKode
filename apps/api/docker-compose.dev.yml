@@ -1,0 +1,20 @@
+# Postgres local para desarrollo (misma major que Supabase). Puerto 5433 para no chocar con un Postgres del sistema.
+services:
+    db:
+        image: postgres:17-alpine
+        container_name: windkode-db
+        environment:
+            POSTGRES_DB: windkode
+            POSTGRES_PASSWORD: windkode
+            POSTGRES_USER: windkode
+        ports:
+            - '5433:5432'
+        volumes:
+            - windkode-db:/var/lib/postgresql/data
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U windkode -d windkode']
+            interval: 5s
+            retries: 10
+
+volumes:
+    windkode-db:

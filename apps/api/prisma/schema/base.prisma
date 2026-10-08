@@ -1,0 +1,11 @@
+// Schema multi-archivo: un .prisma por dominio. Los enums replican las uniones de @windkode/shared.
+generator client {
+    provider            = "prisma-client"
+    output              = "../../src/generated/prisma"
+    moduleFormat        = "esm"
+    importFileExtension = "js"
+}
+
+datasource db {
+    provider = "postgresql"
+}

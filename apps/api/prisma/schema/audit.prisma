@@ -1,0 +1,15 @@
+/// Registro de auditoría: se escribe dentro de la misma transacción que el cambio.
+model AuditLog {
+    id        String   @id @default(uuid(7)) @db.Uuid
+    actorId   String?  @map("actor_id") @db.Uuid
+    action    String
+    entity    String
+    entityId  String   @map("entity_id")
+    data      Json?
+    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+    @@index([entity, entityId])
+    @@map("audit_logs")
+}

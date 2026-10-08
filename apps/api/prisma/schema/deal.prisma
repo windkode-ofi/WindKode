@@ -1,0 +1,35 @@
+enum Currency {
+    BOB
+    USD
+}
+
+enum DealStage {
+    CONTACTED
+    LEAD
+    LOST
+    NEGOTIATION
+    PROPOSAL
+    WON
+}
+
+/// Oportunidad de venta (tarjeta del kanban). `position` ordena las tarjetas dentro de su etapa.
+model Deal {
+    id              String    @id @default(uuid(7)) @db.Uuid
+    title           String
+    amount          Decimal   @db.Decimal(12, 2)
+    currency        Currency  @default(BOB)
+    stage           DealStage @default(LEAD)
+    position        Int       @default(0)
+    expectedCloseAt DateTime? @map("expected_close_at") @db.Date
+    clientId        String    @map("client_id") @db.Uuid
+    ownerId         String    @map("owner_id") @db.Uuid
+    createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+    client Client @relation(fields: [clientId], references: [id], onDelete: Restrict)
+    owner  User   @relation(fields: [ownerId], references: [id], onDelete: Restrict)
+
+    @@index([stage, position])
+    @@index([clientId])
+    @@map("deals")
+}

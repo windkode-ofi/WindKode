@@ -1,0 +1,66 @@
+enum ClientSource {
+    OTHER
+    REFERRAL
+    SOCIAL
+    WEB
+    WHATSAPP
+}
+
+enum ClientStatus {
+    ACCEPTED
+    CONTACTED
+    INTERESTED
+    NEW
+    NO_RESPONSE
+    REJECTED
+}
+
+enum ClientActivityType {
+    CALL
+    EMAIL
+    MEETING
+    NOTE
+    WHATSAPP
+}
+
+/// Contacto del CRM: persona, cargo y empresa, con el estado de la relación y el valor a agregar.
+model Client {
+    id               String       @id @default(uuid(7)) @db.Uuid
+    name             String
+    jobTitle         String?      @map("job_title")
+    company          String?
+    email            String?
+    phone            String?
+    source           ClientSource
+    status           ClientStatus @default(NEW)
+    valueProposition String?      @map("value_proposition")
+    notes            String?
+    ownerId          String       @map("owner_id") @db.Uuid
+    lastActivityAt   DateTime?    @map("last_activity_at") @db.Timestamptz(3)
+    createdAt        DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt        DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+    owner      User             @relation(fields: [ownerId], references: [id], onDelete: Restrict)
+    activities ClientActivity[]
+    deals      Deal[]
+
+    @@index([status])
+    @@index([ownerId])
+    @@map("clients")
+}
+
+model ClientActivity {
+    id         String             @id @default(uuid(7)) @db.Uuid
+    clientId   String             @map("client_id") @db.Uuid
+    authorId   String             @map("author_id") @db.Uuid
+    type       ClientActivityType
+    summary    String
+    occurredAt DateTime           @map("occurred_at") @db.Timestamptz(3)
+    createdAt  DateTime           @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    author User   @relation(fields: [authorId], references: [id], onDelete: Restrict)
+    client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+    @@index([clientId, occurredAt])
+    @@map("client_activities")
+}

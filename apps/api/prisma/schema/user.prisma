@@ -1,0 +1,39 @@
+enum UserRole {
+    ADMIN
+    SELLER
+}
+
+model User {
+    id           String   @id @default(uuid(7)) @db.Uuid
+    email        String   @unique
+    name         String
+    passwordHash String   @map("password_hash")
+    role         UserRole @default(SELLER)
+    isActive     Boolean  @default(true) @map("is_active")
+    createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+    activities ClientActivity[]
+    auditLogs  AuditLog[]
+    clients    Client[]
+    deals      Deal[]
+    sessions   Session[]
+
+    @@map("users")
+}
+
+/// Refresh token rotativo: solo se guarda su hash (sha256).
+model Session {
+    id        String    @id @default(uuid(7)) @db.Uuid
+    userId    String    @map("user_id") @db.Uuid
+    tokenHash String    @unique @map("token_hash")
+    userAgent String?   @map("user_agent")
+    expiresAt DateTime  @map("expires_at") @db.Timestamptz(3)
+    revokedAt DateTime? @map("revoked_at") @db.Timestamptz(3)
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
+    @@map("sessions")
+}

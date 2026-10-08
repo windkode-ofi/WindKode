@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        // Salida
+        "outDir": "dist",
+        "rootDir": "src",
+        "sourceMap": true,
+
+        // Módulos: Nest 12 es ESM; los imports relativos llevan extensión .js
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "es2023",
+
+        // Decoradores de Nest
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+
+        // Rigor
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "skipLibCheck": true,
+        "strict": true
+    },
+    "include": ["src"]
+}
