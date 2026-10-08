@@ -1,94 +1,44 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (and opencode, via the `AGENTS.md` symlink) at the root of the WindKode monorepo. Each app has its own `CLAUDE.md` with app-specific rules — read it before touching that app.
 
-## Project
+## Monorepo
 
-WindKode — landing/portfolio site for a software development startup. Mission: custom software and process automation "with the agility of the wind" (lightweight, fast, accessible apps). Primary language of content and commits is Spanish; the UI is bilingual (ES default / EN) via vue-i18n.
+pnpm workspaces + Turborepo. Node `>=24.12.0` (`.nvmrc` = 24, same value in every `engines`), pnpm pinned via `packageManager`. Never use npm.
 
-## Commands
-
-Uses pnpm (`pnpm-lock.yaml` is the canonical lockfile; a stale `package-lock.json` also exists — don't use npm). Node `^22.18.0 || >=24.12.0` (see `engines`).
-
-```sh
-pnpm dev          # Vite dev server with HMR
-pnpm build        # type-check + production build (runs both in parallel via npm-run-all2)
-pnpm build-only   # client build + SSR build + prerender (no type-check)
-pnpm type-check   # vue-tsc --build only
-pnpm preview      # serve the production build
+```
+apps/web/        landing (Vue 3 + Vite + prerender SSG, bilingual ES/EN) → see apps/web/CLAUDE.md
+apps/admin/      internal panel: CMS, sales, kanban (planned — web only, no mobile app)
+apps/api/        NestJS + Prisma + Supabase Postgres (planned)
+packages/shared/ shared types, zod schemas, constants, utils (planned)
+docs/            project guides tracked in git (BRAND-GUIDE.md, commit.md)
+documentos/      business documents (contracts, proposals, docx/pdf) — local only, gitignored
 ```
 
-There is no linter or test runner configured. Type-checking is the only gate: `pnpm build` fails on type errors. `tsconfig.app.json` enables `noUncheckedIndexedAccess`, so array/object index reads are `T | undefined` and must be narrowed. `pnpm install` runs `husky` via the `prepare` script, which installs the `commit-msg` hook.
+## Commands (from the root)
 
-## Commit convention
+```sh
+pnpm install
+pnpm dev:web      # landing dev server
+pnpm build        # turbo run build (every app; ^build builds packages first)
+pnpm typecheck    # turbo run typecheck
+pnpm clean        # remove build outputs, node_modules and .turbo
+pnpm fresh        # clean + install
+pnpm --filter @windkode/web <script>   # run a script in one workspace
+```
 
-Enforced by husky + commitlint (`@commitlint/config-conventional`) on `commit-msg`. Format: `<tipo>: <descripción breve>` with types `feat|fix|docs|style|refactor|perf|test|chore`. Descriptions are written in Spanish (see `commit.md` for examples).
+`turbo.json` declares `VITE_*` in the build task `env`: Turborepo filters undeclared env vars, so any new build-time variable must be listed there.
 
-## Deploy and SEO (prerender)
+## Git
 
-Vercel, configured in `vercel.json` (framework `vite`, `pnpm build`, output `dist`, `cleanUrls`, permanent redirects for `/proyectos` `/projects` `/contact`, immutable cache for `/assets/*`). There is no catch-all rewrite on purpose: unknown URLs get `dist/404.html` with a real 404 status. There is no `api/` directory and no runtime server code.
+- `main` is production — **never commit to it directly**. Work happens on `develop` (pre-production) or on `<tipo>/<descripcion>` branches cut from `develop`, merged back by PR; `develop` is merged into `main` once verified.
+- Conventional commits **in Spanish with a mandatory scope**, enforced by commitlint (`commitlint.config.cjs`): scopes `web | admin | api | shared | config | ci | deps`. Examples in `docs/commit.md`.
+- husky lives at the root (`prepare` script); hooks in `.husky/`.
 
-The site is statically prerendered (SSG) so every route ships full HTML, `<title>`, meta, canonical and JSON-LD: `build-only` runs `vite build`, then `vite build --ssr src/entry-server.ts`, then `scripts/prerender.mjs`, which renders each entry of `prerenderRoutes` (`src/router/index.ts`) to `dist/<ruta>.html`, plus `404.html`, `sitemap.xml` and `robots.txt` (URLs from `VITE_SITE_URL`, default in `src/config/site.ts`). `src/app.ts` builds the app for both sides; `src/main.ts` hydrates (`createSSRApp`) when `#app` has prerendered markup and plain-mounts in `pnpm dev`. Head tags come from `useSeo()` (App.vue) via route `meta` (`titleKey`, `descKey`, `crumbKey`, `noindex`). When adding a public page: add the route with its `seo.*` keys **and** an entry in `prerenderRoutes`.
+## Standards
 
-SSR rules: never touch `window`/`document`/`localStorage` at module level or in `setup` — only in `onMounted`/event handlers. The first client render must match the prerendered HTML, so i18n always boots in `es` and the theme store in `system`; the saved locale/theme are applied after mount (`restore()` in both stores). An inline script in `index.html` sets the `.dark`/`.light` class before first paint (no flash) and runs the intro. Google Search Console is verified with the HTML-file method (`public/googleff0897cbf54c30ea.html`).
+The developer's standards live in the Obsidian vault (`~/Obsidian Vault/Desarollo/Mis estándares/`, derived from the Q-minex monorepo): code in English, user-facing text in Spanish (tuteo), string-literal unions instead of `enum`, no `any`, `import type`, one zod contract per request in `packages/shared`, layer-prefixed components (`UI*`, `Common*`, `Form*`, `Layout*`) for new apps. Documented exceptions: `apps/web` keeps vue-i18n (the product is bilingual) and commits are in Spanish.
 
-## Contact channels
+## Visual design
 
-All contact data lives in `src/config/contact.ts` (email `windkode@gmail.com`, WhatsApp `5917590262` in E.164 without `+`), overridable via `VITE_CONTACT_EMAIL` / `VITE_WHATSAPP_NUMBER`, plus `SOCIAL_LINKS` (Instagram, Facebook, LinkedIn; keep URLs free of tracking params). Consume it only through `useContact()` (`src/composables/useContact.ts`), which builds the localized `wa.me` link (default message = `contacto.whatsapp_mensaje`), the `mailto:` link, and drives the form status (`idle | sent`).
-
-There is **no backend**: submitting the form calls `buildContactMailto` (`contact.service.ts`) and sets `window.location.href` to a `mailto:` URL with subject and body prefilled, so the visitor's own mail client sends the message. Spaces are encoded as `%20` (not `+`) because mail clients don't decode `+` in `mailto:`.
-
-`CtaLink` accepts either `to` (RouterLink) or `href` (external `<a>` with `target=_blank`). Brand glyphs are hand-drawn ui components since lucide ships no brand icons: `WhatsAppIcon` and `SocialIcon` (`name` = `instagram | facebook | linkedin`). The social icon row is the shared `SocialLinks` component (props `size`, `label`), rendered in the hero under the CTAs, the footer bottom bar, and `/agenda` — add networks in `SOCIAL_LINKS` only.
-
-## Stack
-
-Vue 3 (Composition API, `<script setup lang="ts">`), TypeScript, Vite 8, TailwindCSS v4 (via `@tailwindcss/vite`, no tailwind.config — theme lives in `src/assets/main.css` `@theme` block), Vue Router 4, Pinia (setup-store style), vue-i18n v11 (Composition API, `legacy: false`).
-
-## Architecture
-
-Intended data flow: **View → Composable → Service → Store**. Components receive props and emit events only — no business logic in components. `ContactForm` goes through `useContact()`; `ScheduleView`, `AppFooter` and `CtaBanner` read the contact links from the same composable.
-
-- `src/components/ui/` — atomic base components (AppButton, AppCard, AppBadge, WLogo, CtaLink), styled with Tailwind, variant props
-- `src/components/layout/` — AppNavbar, AppFooter, AppSection, SectionHeader (page chrome; navbar/footer mounted once in App.vue)
-- `src/components/shared/` — business components (ProjectCard, ContactForm, ServiceCard, TeamCard, StatsBar, TechMarquee, CtaBanner, StackScene, RevealOnScroll, …)
-- `src/components/motion/` — presentation-only animation primitives (see Motion below)
-- `src/composables/` — thin reactive wrappers (useLocale / useTheme wrap their stores, useScrollTo, useIntersectionObserver, useSmoothScroll, useScrollProgress, useSeo)
-- `src/services/` — data layer returning Promises. `projects.service` is mock data resolved through i18n so it localizes; `contact.service` only builds the `mailto:` URL (see Contact channels).
-- `src/data/` — static UI content (services, stats, team, pillars, marquee items) with lucide icon components; user-facing text stays in i18n, these arrays hold only keys + icons
-- `src/stores/` — Pinia setup stores: `locale.store` (single writer for locale: syncs vue-i18n, `<html lang>`, localStorage), `theme.store`, `portfolio.store` (projects via service)
-- `src/types/` — shared interfaces (Project, Skill, ContactForm)
-
-Each component folder has an `index.ts` barrel — import via `import { AppButton } from '@/components/ui'`. Path alias `@` → `src/`.
-
-## i18n rules
-
-- Translation files: `src/i18n/locales/es.json` and `en.json`. Both files must always have identical key structure; `es` is the fallback locale.
-- Keys are grouped by scope (`nav`, `hero`, `servicios`, `footer`, …) and named in Spanish.
-- In components use `const { t } = useI18n()` — never hardcode user-facing strings. Outside components (services) use `i18n.global.t`.
-- vue-i18n treats `@`, `|` and `{`/`}` as message syntax; a literal `@` must be written as `{'@'}` and a literal `|` as `{'|'}` (an unescaped `|` is a plural separator and silently truncates the text — this used to cut the SEO titles).
-- Mock/data text (e.g. projects) also goes through i18n (`projects_data.*`).
-- Locale persists in localStorage; change it only through the locale store / useLocale. The app boots in `es` (it must match the prerendered HTML) and `useLocaleStore().restore()` applies the saved locale right after mount.
-- Per-route `<title>`/description live in `seo.<pagina>.*`; the prerendered HTML is in Spanish and they re-localize client-side when the locale changes. Each page has exactly one `h1` (`SectionHeader as="h1"` on inner pages).
-
-## Design system
-
-The palette is **semantic and theme-aware**, defined once in the `@theme` block of `src/assets/main.css`: abyss (page background), graphite (surfaces), carbon (elevated surfaces), steel (muted accent), silver (body text), platinum (CTA background), ink (max-contrast foreground — use it instead of `white`/`black` utilities), halo (CTA hover), veil (shadow color), jade y jade-soft (**el acento de marca, el verde `#06d6a0` del «KODE» del logo — solo existe en tema OSCURO**; en claro cada uno cae en el neutro que la paleta usaba antes del acento, así que el tema claro se ve sin verde: `jade` = ink para primer plano —texto, iconos, hover, foco, activo— y `jade-soft` = steel para bordes y marcas —«KODE», glifos, separadores—). Es el **único acento cromático** y solo en oscuro: el logotipo, el satélite del hero, los separadores del marquee y, sobre todo, **estados** — hover de tarjetas, iconos, enlaces y CTA outline, foco de formulario, nodo activo de la órbita, enlace activo de la navbar. En reposo casi no se ve; aparece al interactuar. `--jade-glow` sigue la misma regla (verde en oscuro, neutro en claro). No se usa en superficies, texto corrido, títulos ni en el CTA sólido. Light values live on `:root`; dark values are redefined under `:root.dark` and duplicated inside a `prefers-color-scheme: dark` media block for the system default — **keep those two dark blocks in sync**. Theme selection: default follows the OS; `theme.store.ts` persists a manual `light`/`dark` override in localStorage by toggling a `.light`/`.dark` class on `<html>` (no class = system). No `dark:` variants are needed — colors flip via the tokens, so never hardcode `text-white`, `bg-black`, raw hex, or rgba in components (use `text-ink`, `border-ink/10`, the `--metal-*`/`--logo-glow` vars, etc.). Font tokens: Bebas Neue = display for giant uppercase headings, Inter = body (only these two are loaded).
-
-Animations are also tokens in `@theme` (`animate-fade-up`, `animate-rise`, `animate-drift`, `animate-float-*`, `animate-marquee`, …) with a `prefers-reduced-motion` block at the bottom of `main.css`. Route transitions use the `.page-*` classes there via `<Transition name="page">` in App.vue.
-
-When consuming Pinia stores outside components, and in composables, use `storeToRefs` to keep reactivity (see `useLocale`/`useTheme`). The navbar/footer wordmark is `WIND<span class="text-steel">KODE</span>` — «KODE» is gray (steel) in **both** themes, never jade. Dark, minimalist aesthetic; big display titles use the `.text-metal` gradient class, primary CTAs use `CtaLink` (which carries the `.btn-shine` periodic shimmer). Icons come from `@lucide/vue`. Scroll-reveal animations use the `RevealOnScroll` shared component (`.reveal` / `.is-visible` classes). Brand logo: `src/assets/svg/W-logo.svg` (inlined as the `WLogo` ui component so it inherits `currentColor`). Pieza gráfica de marca para redes: `src/assets/svg/poster-marca.svg` (1080×1350, vectorial y autocontenido — lleva Bebas Neue e Inter subconjuntadas e incrustadas en base64, usa los tokens del tema oscuro y su texto sale de los mismos strings de i18n) y su export `src/assets/poster-marca.png`.
-
-## Routes
-
-Each nav section is its own lazy-loaded page: `/` (hero + teasers), `/servicios`, `/nosotros`, `/equipo`, `/agenda` (contact form). Legacy `/contact` redirects to `/agenda`. The projects module (`ProjectsView`, `ProjectCard`, `portfolio.store`, `projects.service`, `projects_data.*` i18n) is **disabled for now**: its route is commented out in `src/router/index.ts` and `/proyectos` / `/projects` redirect to `/`; it is not linked from the navbar, footer or hero. Keep its files intact so it can be re-enabled. `scrollBehavior` scrolls smoothly to a hash if present, otherwise to top. The navbar logo links home ("Inicio" is the logo, not a nav item); the navbar morphs into a floating island pill on scroll.
-
-## Motion
-
-Interaction layer inspired by the sibling NEXA project (`../NEXA`), but only a curated subset — the user explicitly **rejected** the custom magnetic cursor, navbar animations, the horizontal pinned process scroll, the rotating circle text, the hero grid and the lines connecting the hero stars. Don't reintroduce them. Built in plain Vue + CSS with **Lenis** as the only dependency:
-
-- Global (App.vue): `useSmoothScroll()` (Lenis; router `scrollBehavior` and anchors go through `scrollToTarget`, the mobile menu uses `setScrollLocked`) and `ScrollProgress` (top bar, `bg-jade-soft`). Page transitions: `.page-*` in main.css.
-- Loading screen: markup in `index.html` (`#wk-intro`), driven by the inline head script on every full page load (skipped for bots and reduced motion). It stays until fonts, the `load` event and `wk:app-ready` (dispatched by main.ts after mount) are all done — min 900 ms, max 8 s; the counter creeps to ~90 % while waiting. While `html.intro-pending` is set, CSS animations inside `.intro-gate` (hero) are paused.
-- 3D: `StackScene` (shared, home section «Capa por capa») is a pure-CSS isometric stack — one plate per service layer (`stackLayers` in `src/data`), gap tied to scroll (`--gap`), tilt to cursor, active layer lifts and glows; styles are the `.stack-*` block in main.css. No WebGL/Three.js: keep 3D this light.
-- `src/components/motion/`: `VelocityMarquee` (the two-row `TechMarquee`: speed/direction/skew follow scroll velocity — the user likes it), `WindCanvas` (hero: stars drifting with the wind + wind gusts, no links, no cursor interaction; colors from tokens), `MaskLines` (masked line titles, `mode="view" | "load"`), `ScrollText` (words light up with scroll via one CSS var), `CountUp`, `TiltCard` (3D tilt + `.spotlight` using `--spot`).
-- `useScrollProgress(el, [a, b], initial)` gives 0→1 progress from one shared rAF scroll loop. For per-frame effects prefer writing CSS variables on the element (see the hero in `HomeView`) over reactive template bindings. `initial` is the value rendered in the prerendered HTML — pick the one where content is visible.
-- Everything must degrade under `prefers-reduced-motion` (see the block at the end of main.css) and keep the text in the HTML (no content injected only on the client).
+The landing's look is fixed and must be preserved: any refactor of `apps/web` has to produce the same rendered output (compare the prerendered `dist/*.html` and check the pages visually).

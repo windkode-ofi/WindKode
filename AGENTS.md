@@ -1,136 +1,55 @@
-# WindKode — AGENTS.md
+# CLAUDE.md
 
-## Quick Reference
+Guidance for Claude Code (and opencode, via the `AGENTS.md` symlink) at the root of the WindKode monorepo. Each app has its own `CLAUDE.md` with app-specific rules — read it before touching that app.
 
-**Project:** Vue 3 + TypeScript + Vite + TailwindCSS v4 landing/portfolio site for software startup
-**Stack:** Vue 3 (Composition API), TS, Vite 8, TailwindCSS v4, Vue Router 4, Pinia, vue-i18n v11
-**Package manager:** `pnpm` (lockfile: `pnpm-lock.yaml` — do NOT use npm)
-**Node:** `^22.18.0 || >=24.12.0`
+## Monorepo
 
-## Commands
+pnpm workspaces + Turborepo. Node `>=24.12.0` (`.nvmrc` = 24, same value in every `engines`), pnpm pinned via `packageManager`. Never use npm.
+
+```
+apps/web/        landing (Vue 3 + Vite + prerender SSG, bilingual ES/EN) → see apps/web/CLAUDE.md
+apps/admin/      internal panel: CMS, sales, kanban (planned — web only, no mobile app)
+apps/api/        NestJS + Prisma + Supabase Postgres (planned)
+packages/shared/ shared types, zod schemas, constants, utils (planned)
+docs/            project guides tracked in git (BRAND-GUIDE.md, commit.md)
+documentos/      business documents (contracts, proposals, docx/pdf) — local only, gitignored
+```
+
+## Commands (from the root)
 
 ```sh
-pnpm dev          # Vite dev server with HMR
-pnpm build        # type-check + production build (parallel via npm-run-all2)
-pnpm build-only   # vite build without type-check
-pnpm type-check   # vue-tsc --build only
-pnpm preview      # serve production build
+pnpm install
+pnpm dev:web      # landing dev server
+pnpm build        # turbo run build (every app; ^build builds packages first)
+pnpm typecheck    # turbo run typecheck
+pnpm clean        # remove build outputs, node_modules and .turbo
+pnpm fresh        # clean + install
+pnpm --filter @windkode/web <script>   # run a script in one workspace
 ```
 
-No linter/test runner configured. Type-checking is the only gate (`pnpm build` fails on type errors). `tsconfig.app.json` has `noUncheckedIndexedAccess` — array/object index reads are `T | undefined` and must be narrowed.
+`turbo.json` declares `VITE_*` in the build task `env`: Turborepo filters undeclared env vars, so any new build-time variable must be listed there.
 
-## Commit Convention
+## Git
 
-Enforced by husky + commitlint (`@commitlint/config-conventional`) on `commit-msg`. Format:
-```
-<tipo>: <descripción breve>
-```
-Types: `feat|fix|docs|style|refactor|perf|test|chore`
-Descriptions in Spanish (see `commit.md` for examples).
+- `main` is production — **never commit to it directly**. Work happens on `develop` (pre-production) or on `<tipo>/<descripcion>` branches cut from `develop`, merged back by PR; `develop` is merged into `main` once verified.
+- Conventional commits **in Spanish with a mandatory scope**, enforced by commitlint (`commitlint.config.cjs`): scopes `web | admin | api | shared | config | ci | deps`. Examples in `docs/commit.md`.
+- husky lives at the root (`prepare` script); hooks in `.husky/`.
 
-## Architecture
+## Standards
 
-**Data flow:** `View → Composable → Service → Store`
-- Components: only props/emits, no business logic
-- `ContactForm` → `useContact()` → `contact.service.ts` (mailto) → store status
-- `ScheduleView`, `AppFooter`, `CtaBanner` read links from `useContact()`
+The developer's standards live in the Obsidian vault (`~/Obsidian Vault/Desarollo/Mis estándares/`, derived from the Q-minex monorepo): code in English, user-facing text in Spanish (tuteo), string-literal unions instead of `enum`, no `any`, `import type`, one zod contract per request in `packages/shared`, layer-prefixed components (`UI*`, `Common*`, `Form*`, `Layout*`) for new apps. Documented exceptions: `apps/web` keeps vue-i18n (the product is bilingual) and commits are in Spanish.
 
-**Key directories:**
-```
-src/
-├── components/
-│   ├── ui/          # atomic (AppButton, AppCard, WLogo, CtaLink, WhatsAppIcon, SocialIcon)
-│   ├── layout/      # AppNavbar, AppFooter, AppSection, SectionHeader
-│   └── shared/      # business (ProjectCard, ContactForm, ServiceCard, etc.)
-├── composables/     # useLocale, useTheme, useScrollTo, useIntersectionObserver
-├── services/        # projects.service (mock + i18n), contact.service (mailto builder)
-├── stores/          # locale.store, theme.store, portfolio.store (Pinia setup stores)
-├── data/            # static UI content (services, stats, team, pillars, marquee) — keys + icons only
-├── types/           # Project, Skill, ContactForm interfaces
-├── i18n/locales/    # es.json, en.json (identical key structure, ES fallback)
-└── config/contact.ts  # single source of truth for contact/social data
-```
+## Visual design
 
-Path alias: `@` → `src/`. Barrel exports: `import { AppButton } from '@/components/ui'`
+The landing's look is fixed and must be preserved: any refactor of `apps/web` has to produce the same rendered output (compare the prerendered `dist/*.html` and check the pages visually).
 
-## i18n Rules
+<!-- BEGIN:turborepo-agent-rules -->
 
-- Files: `src/i18n/locales/es.json`, `en.json` — identical structure, ES fallback
-- Keys grouped by scope (`nav`, `hero`, `servicios`, `footer`, `projects_data`, …) named in Spanish
-- In components: `const { t } = useI18n()` — never hardcode strings
-- In services: `i18n.global.t`
-- `@` and `{`/`}` are message syntax; literal `@` = `{'@'}`
-- Locale persists in localStorage; change only via `locale.store` / `useLocale`
-- Page `<title>`/meta in `index.html` are static ES (not localized yet)
+# This is NOT the Turborepo you know
 
-## Design System (Tokens in `@theme` block of `src/assets/main.css`)
+Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p "require.resolve('turbo/package.json')"` from a workspace that depends on `turbo`.
 
-**Semantic colors (light theme = `:root`, dark = `:root.dark` + media query):**
+Read `docs/README.md` inside that installed package first, then read the relevant pages from its `docs/` directory before changing Turborepo configuration or commands. Heed deprecation notices. These bundled docs match the installed package version and are available without network access.
 
-| Token | Light | Dark | Usage |
-|-------|-------|------|-------|
-| `--color-abyss` | `#f4f5f8` | `#0e0f12` | Page background |
-| `--color-graphite` | `#ffffff` | `#16181d` | Surfaces |
-| `--color-carbon` | `#e9ebf0` | `#1e2127` | Elevated surfaces |
-| `--color-steel` | `#647084` | `#8b93a1` | Muted accent |
-| `--color-silver` | `#454b55` | `#c5c8cf` | Body text |
-| `--color-platinum` | `#16181d` | `#e9eaed` | CTA backgrounds / highlights |
-| `--color-ink` | `#0e1013` | `#ffffff` | Max-contrast foreground (use instead of white/black) |
-| `--color-halo` | `#2b3038` | `#ffffff` | CTA hover |
-| `--color-veil` | `#8b93a1` | `#000000` | Shadows |
-
-**Auxiliary vars (no utilities generated):**
-- `--metal-1` → `--metal-4`: gradient stops for `.text-metal` (display headings)
-- `--logo-glow`: logo glow color
-
-**Fonts:**
-- `--font-display`: Bebas Neue (giant uppercase headings)
-- `--font-headline`: Fraunces (headlines)
-- `--font-body`: Inter (body text)
-- `--font-roboto`: Roboto (fallback)
-
-**Theme switching:** Default = OS preference. Manual override via `theme.store` toggles `.light`/`.dark` on `<html>`. No class = system. **No `dark:` variants needed** — colors flip via tokens.
-
-**Never hardcode:** `text-white`, `bg-black`, raw hex, rgba. Use tokens: `text-ink`, `border-ink/10`, `var(--metal-*)`, etc.
-
-**Animations:** Defined as tokens (`animate-fade-up`, `animate-rise`, `animate-drift`, `animate-marquee`, …) with `prefers-reduced-motion` block.
-
-**Route transitions:** `.page-*` classes via `<Transition name="page">` in App.vue.
-
-**Scroll reveal:** `RevealOnScroll` component (`.reveal` / `.is-visible` classes).
-
-**Brand logo:** `WLogo` (inlines `W-logo.svg`, inherits `currentColor`).
-
-**CTA style:** `CtaLink` with `.btn-shine` periodic shimmer.
-
-## Contact / Social (single source: `src/config/contact.ts`)
-
-```ts
-CONTACT_EMAIL = 'windkode@gmail.com'
-WHATSAPP_NUMBER = '59175904262'  // E.164 without +
-SOCIAL_LINKS = [
-  { key: 'instagram', href: 'https://www.instagram.com/windkode/' },
-  { key: 'facebook',  href: 'https://www.facebook.com/share/1B9j2nfj35/' },
-  { key: 'linkedin',  href: 'https://www.linkedin.com/company/windkode/' },
-]
-```
-Override via `VITE_CONTACT_EMAIL` / `VITE_WHATSAPP_NUMBER`.
-
-**Form submission:** No backend. `buildContactMailto()` creates `mailto:` with subject/body, sets `window.location.href`. Spaces encoded as `%20` (not `+`). WhatsApp link built in `useContact()` using `contacto.whatsapp_mensaje` i18n key.
-
-## Deploy
-
-Vercel: `vercel.json` → framework `vite`, build `pnpm build`, output `dist`. No rewrites, no API, no server code.
-
-## Key Files to Know
-
-| File | Purpose |
-|------|---------|
-| `src/assets/main.css` | All design tokens (colors, fonts, animations) |
-| `src/config/contact.ts` | Contact/social data (single source) |
-| `src/composables/useContact.ts` | Reactive contact links + form status |
-| `src/services/contact.service.ts` | `buildContactMailto()` |
-| `src/i18n/locales/es.json` | All user-facing text (ES) |
-| `src/stores/locale.store.ts` | Locale persistence + `<html lang>` sync |
-| `src/stores/theme.store.ts` | Theme persistence + `<html class>` toggle |
-| `vercel.json` | Deploy config |
+This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
+<!-- END:turborepo-agent-rules -->
