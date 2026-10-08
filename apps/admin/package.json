@@ -1,0 +1,44 @@
+{
+    "name": "@windkode/admin",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Panel interno de WindKode: CRM de clientes, kanban de ventas y gestión del equipo. Vue 3 + Vite + Nuxt UI.",
+    "license": "UNLICENSED",
+    "type": "module",
+    "scripts": {
+        "build": "vue-tsc --build && vite build",
+        "clean": "rm -rf dist node_modules/.tmp node_modules/.vite .turbo",
+        "dev": "vite --port 5174",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "preview": "vite preview --port 5174",
+        "test": "vitest run",
+        "typecheck": "vue-tsc --build"
+    },
+    "dependencies": {
+        "@nuxt/ui": "^4.11.3",
+        "@vueuse/core": "^15.0.0",
+        "@windkode/shared": "workspace:*",
+        "pinia": "^4.0.3",
+        "tailwindcss": "^4.3.3",
+        "vue": "^3.5.42",
+        "vue-router": "^4.6.4",
+        "zod": "^4.6.5"
+    },
+    "devDependencies": {
+        "@types/node": "^24.13.3",
+        "@vitejs/plugin-vue": "^6.0.8",
+        "@vue/test-utils": "^2.5.1",
+        "@vue/tsconfig": "^0.9.1",
+        "@windkode/eslint-config": "workspace:*",
+        "eslint": "^10.12.0",
+        "happy-dom": "^20.14.5",
+        "typescript": "~6.0.3",
+        "vite": "^8.2.2",
+        "vitest": "^5.0.3",
+        "vue-tsc": "^3.3.11"
+    },
+    "engines": {
+        "node": ">=24.12.0"
+    }
+}
