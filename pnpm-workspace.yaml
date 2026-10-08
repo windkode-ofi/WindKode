@@ -1,3 +1,11 @@
 packages:
     - 'apps/*'
     - 'packages/*'
+
+# Paquetes autorizados a ejecutar scripts de instalación (binarios nativos y motores de Prisma).
+onlyBuiltDependencies:
+    - '@prisma/engines'
+    - '@swc/core'
+    - argon2
+    - esbuild
+    - prisma
