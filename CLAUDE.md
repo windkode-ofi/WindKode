@@ -8,9 +8,10 @@ pnpm workspaces + Turborepo. Node `>=24.12.0` (`.nvmrc` = 24, same value in ever
 
 ```
 apps/web/        landing (Vue 3 + Vite + prerender SSG, bilingual ES/EN) → see apps/web/CLAUDE.md
-apps/admin/      internal panel: CMS, sales, kanban (planned — web only, no mobile app)
-apps/api/        NestJS + Prisma + Supabase Postgres (planned)
-packages/shared/ shared types, zod schemas, constants, utils (planned)
+apps/admin/      internal panel: CRM, sales kanban, team (Vue + Nuxt UI, web only — no mobile app) → see apps/admin/CLAUDE.md
+apps/api/        NestJS 12 + Prisma 7 + Postgres (Supabase) → see apps/api/CLAUDE.md
+packages/shared/ single contract: types, zod schemas, _LABEL/_COLOR constants, pure utils (ESM, tsc build, vitest)
+packages/eslint-config/ base + vue + node presets (alphabetical order, no let, no any, noInlineConfig)
 docs/            project guides tracked in git (BRAND-GUIDE.md, commit.md)
 documentos/      business documents (contracts, proposals, docx/pdf) — local only, gitignored
 ```
@@ -19,7 +20,12 @@ documentos/      business documents (contracts, proposals, docx/pdf) — local o
 
 ```sh
 pnpm install
+pnpm db:up        # local Postgres (docker compose, :5433)
+pnpm dev:api      # api on :4000 (+ shared in watch mode)
+pnpm dev:admin    # admin on :5174
 pnpm dev:web      # landing dev server
+pnpm lint | test  # turbo run lint / test
+pnpm check        # lint + typecheck + prettier --check
 pnpm build        # turbo run build (every app; ^build builds packages first)
 pnpm typecheck    # turbo run typecheck
 pnpm clean        # remove build outputs, node_modules and .turbo
@@ -38,6 +44,10 @@ pnpm --filter @windkode/web <script>   # run a script in one workspace
 ## Standards
 
 The developer's standards live in the Obsidian vault (`~/Obsidian Vault/Desarollo/Mis estándares/`, derived from the Q-minex monorepo): code in English, user-facing text in Spanish (tuteo), string-literal unions instead of `enum`, no `any`, `import type`, one zod contract per request in `packages/shared`, layer-prefixed components (`UI*`, `Common*`, `Form*`, `Layout*`) for new apps. Documented exceptions: `apps/web` keeps vue-i18n (the product is bilingual) and commits are in Spanish.
+
+## Formatting
+
+Prettier: 4 spaces, 120 columns, no semicolons, single quotes, one attribute per line. Applied by lint-staged on `pre-commit` (ESLint `--fix` + Prettier). `apps/web` is excluded in `.prettierignore` until its dedicated formatting pass (the CSS-order plugin could change the rendered output).
 
 ## Visual design
 
