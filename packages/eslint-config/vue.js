@@ -33,6 +33,18 @@ export const vueConfig = [
         },
     },
     {
+        // typescript-eslint no ve los tipos de los SFC (.vue): eso lo resuelve vue-tsc, que corre en `typecheck` y en el build.
+        // Sin esta excepción, cada ref de plantilla o componente importado da falsos positivos de no-unsafe-*.
+        files: ['**/*.vue', '**/main.ts'],
+        rules: {
+            '@typescript-eslint/no-unsafe-argument': 'off',
+            '@typescript-eslint/no-unsafe-assignment': 'off',
+            '@typescript-eslint/no-unsafe-call': 'off',
+            '@typescript-eslint/no-unsafe-member-access': 'off',
+            '@typescript-eslint/no-unsafe-return': 'off',
+        },
+    },
+    {
         // Los stores se leen como estado → acciones.
         files: ['**/stores/**'],
         rules: { 'perfectionist/sort-objects': 'off' },
